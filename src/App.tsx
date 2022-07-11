@@ -1,16 +1,14 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import "./app.css";
+import {
+  ibanMod97Validator,
+  ibanStructureValidator,
+} from "./utils/ibanValidators";
 
 function App() {
   const [inputValue, setInputValue] = useState<string>("");
   const [isValidIban, setIsValidIban] = useState<boolean>(false);
   const [showValidation, setShowValidation] = useState<boolean>(false);
-
-  const ibanValidator = (value: string) => {
-    const regexObj = /^LI\d{7}[A-Z0-9]{12}$/;
-    const valueFormatted: string = value.toUpperCase().replace(/ /g, "");
-    setIsValidIban(regexObj.test(valueFormatted));
-  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setShowValidation(false);
@@ -27,6 +25,12 @@ function App() {
     event.preventDefault();
     ibanValidator(inputValue);
     setShowValidation(true);
+  };
+
+  const ibanValidator = (value: string) => {
+    if (ibanStructureValidator(value) && ibanMod97Validator(value)) {
+      setIsValidIban(true);
+    } else setIsValidIban(false);
   };
 
   return (
