@@ -20,8 +20,8 @@ export const ibanMod97Validator = (iban: string): boolean => {
     });
 
   const ibanFormatted = BigInt(ibanFormattedToNumbers.join(""));
-  const mod97 = BigInt(97);
-  const moduleResult = ibanFormatted % mod97;
+  const divisorNumber = BigInt(97);
+  const moduleResult = ibanFormatted % divisorNumber;
   const moduleToNumber = Number(moduleResult);
 
   return moduleToNumber === 1;
