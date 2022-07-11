@@ -6,7 +6,8 @@ export const ibanStructureValidator = (value: string): boolean => {
   return regexObj.test(valueFormatted);
 };
 
-export const ibanMod97Validator = (iban: string): boolean => {
+export const ibanMod97Validator = (value: string): boolean => {
+  const iban: string = value.toUpperCase().replace(/ /g, "");
   const firstFourthCharacters = iban.slice(0, 4);
   const restOfIban = iban.slice(4);
   const reorderedIban = restOfIban + firstFourthCharacters;
